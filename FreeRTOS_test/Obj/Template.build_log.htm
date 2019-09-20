@@ -1,0 +1,60 @@
+<html>
+<body>
+<pre>
+<h1>µVision Build Log</h1>
+<h2>Tool Versions:</h2>
+IDE-Version: ¦ÌVision V5.20.0.0
+Copyright (C) 2016 ARM Ltd and ARM Germany GmbH. All rights reserved.
+License Information: 1 Administrator, 1, LIC=GMZ2Z-J8K0H-0ZYWZ-JLUFI-XARNH-AID8G
+ 
+Tool Versions:
+Toolchain:       MDK-ARM Plus  Version: 5.20
+Toolchain Path:  d:\Keil_v5\ARM\ARMCC\Bin
+C Compiler:      Armcc.exe V5.06 update 2 (build 183)
+Assembler:       Armasm.exe V5.06 update 2 (build 183)
+Linker/Locator:  ArmLink.exe V5.06 update 2 (build 183)
+Library Manager: ArmAr.exe V5.06 update 2 (build 183)
+Hex Converter:   FromElf.exe V5.06 update 2 (build 183)
+CPU DLL:         SARMCM3.DLL V5.20
+Dialog DLL:      DCM.DLL V1.13.7.0
+Target DLL:      Segger\JL2CM3.dll V2.99.20.0
+Dialog DLL:      TCM.DLL V1.14.9.0
+ 
+<h2>Project:</h2>
+C:\Users\Administrator\Desktop\³äµçÕ¾\FreeRTOS_test\Template.uvprojx
+Project File Date:  09/19/2019
+
+<h2>Output:</h2>
+*** Using Compiler 'V5.06 update 2 (build 183)', folder: 'd:\Keil_v5\ARM\ARMCC\Bin'
+Build target 'Target 1'
+compiling led.c...
+compiling crc16.c...
+compiling main.c...
+compiling task_app.c...
+compiling rs485.c...
+compiling timer.c...
+compiling protocol.c...
+compiling gprs_at.c...
+compiling system.c...
+compiling gprs_data_unit.c...
+HARDWARE\GPRS_WIS800C\gprs_data_unit.c(132): warning:  #550-D: variable "tim_cnt2" was set but never used
+      static uint16_t tim_cnt1 = 0,tim_cnt2 = 0;           // ¶¨Ê±?÷¼???
+HARDWARE\GPRS_WIS800C\gprs_data_unit.c(133): warning:  #550-D: variable "ser_hb_cnt" was set but never used
+      static uint8_t ser_hb_cnt = 0,heart_beat_cnt = 0;    // ?????????ø¼??ý£????ø¼???
+HARDWARE\GPRS_WIS800C\gprs_data_unit.c: 2 warnings, 0 errors
+compiling SysTick.c...
+compiling usart.c...
+linking...
+Program Size: Code=14436 RO-data=344 RW-data=180 ZI-data=19628  
+FromELF: creating hex file...
+".\Obj\Template.axf" - 0 Error(s), 2 Warning(s).
+
+<h2>Collection of Component include folders:</h2>
+  C:\Users\Administrator\Desktop\³äµçÕ¾\FreeRTOS_test\RTE
+  d:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.1.0\Device\Include
+
+<h2>Collection of Component Files used:</h2>
+Build Time Elapsed:  00:00:02
+</pre>
+</body>
+</html>

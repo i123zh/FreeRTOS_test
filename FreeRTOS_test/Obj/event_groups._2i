@@ -1,0 +1,6 @@
+--c99 -c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I .\User -I .\FWLIB\CMSIS -I .\FWLIB\STM32F10x_StdPeriph_Driver\inc -I .\HARDWARE\led -I .\SYSTEM -I .\HARDWARE\rs485 -I .\HARDWARE\CRC -I .\HARDWARE\protocol -I .\FreeRTOS\include -I .\FreeRTOS\portable\RVDS\ARM_CM3 -I .\FreeRTOS -I .\HARDWARE\timer -I .\HARDWARE\GPRS_WIS800C
+-I C:\Users\Administrator\Desktop\≥‰µÁ’æ\FreeRTOS_test\RTE
+-I d:\Keil_v5\ARM\PACK\Keil\STM32F1xx_DFP\2.1.0\Device\Include
+-I d:\Keil_v5\ARM\CMSIS\Include
+-D__UVISION_VERSION="520" -DSTM32F10X_MD -DUSE_STDPERIPH_DRIVER
+-o .\obj\event_groups.o --omf_browse .\obj\event_groups.crf --depend .\obj\event_groups.d --feedback ".\Obj\Template.fed" "FreeRTOS\event_groups.c"
