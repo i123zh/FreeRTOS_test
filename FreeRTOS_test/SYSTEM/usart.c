@@ -1,7 +1,5 @@
 #include "usart.h"
 
-extern void uarst1_recv_irq(void);
-
 int fputc(int ch,FILE *p)  //函数默认的，在使用printf函数时自动调用
 {
     USART_SendData(USART2,(u8)ch);
@@ -66,13 +64,12 @@ void usart1_init(u32 bound)
 *******************************************************************************/ 
 void USART1_IRQHandler(void)                        //串口1中断服务程序
 {
-//    u8 r;
+    u8 r;
     if(USART_GetITStatus(USART1, USART_IT_RXNE) != RESET)  //接收中断
     {
         USART_ClearFlag(USART1,USART_IT_RXNE);
-        uarst1_recv_irq();
-//        r =USART_ReceiveData(USART1);//(USART1->DR);    //读取接收到的数据
-//        USART_SendData(USART1,r);
+        r =USART_ReceiveData(USART1);//(USART1->DR);    //读取接收到的数据
+        USART_SendData(USART1,r);
         //while(USART_GetFlagStatus(USART1,USART_FLAG_TC) != SET);
     }
 } 
@@ -84,18 +81,6 @@ void USART1_IRQHandler(void)                        //串口1中断服务程序
 * 输    入         : bound:波特率
 * 输    出         : 无
 *******************************************************************************/
-void usart2_parameter_config(uint32_t baud);    
-void usart2_gpio_config(void);
-void usart2_nvic_config(void);
-
-//串口2初始化  
-void usart2_init(uint32_t baud)
-{
-    usart2_gpio_config();                                     // 端口2工作模式设置
-    usart2_nvic_config();
-    usart2_parameter_config(baud);                            // 串口2工作参数设置
-}
-
 //串口2的GPIO端口配置化 
 void usart2_gpio_config(void)
 {
@@ -142,19 +127,42 @@ void usart2_nvic_config(void)
     NVIC_Init(&NVIC_InitStructure);
 }
 
+//串口2初始化  
+void usart2_init(uint32_t baud)
+{
+    usart2_gpio_config();                                     // 端口2工作模式设置
+    usart2_nvic_config();
+    usart2_parameter_config(baud);                            // 串口2工作参数设置
+}
+
 /*******************************************************************************
 * 函 数 名         : USART2_IRQHandler
 * 函数功能         : USART2中断函数
 * 输    入         : 无
 * 输    出         : 无
 *******************************************************************************/ 
+extern TaskHandle_t LED0_Task_handle;
+
 void USART2_IRQHandler(void)                                //串口1中断服务程序
 {
     u8 r;
+    BaseType_t res;
     if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)   //接收中断
     {
         r = USART_ReceiveData(USART2);                      //读取接收到的数据
         USART_SendData(USART2,r);                           //回显
+        if(r == '1')
+        {
+            res = xTaskResumeFromISR(LED0_Task_handle);
+            if(res == pdTRUE)
+            {
+                portYIELD_FROM_ISR(res);
+            }
+        }
+        if(r == '2')
+        {
+            vTaskSuspend(LED0_Task_handle);
+        }
         while(USART_GetFlagStatus(USART2,USART_FLAG_TC) != SET);
     } 
     USART_ClearFlag(USART2,USART_FLAG_TC);
@@ -210,8 +218,8 @@ void usart3_init(u32 bound)
 }
 
 
-extern u8 USART3_RX_BUF[64];  //接收缓存，最大64字节
-extern u8 USART3_RX_CNT;
+u8 USART3_RX_BUF[64];  //接收缓存，最大64字节
+u8 USART3_RX_CNT;
 
 /*******************************************************************************
 * 函 数 名         : USART3_IRQHandler
