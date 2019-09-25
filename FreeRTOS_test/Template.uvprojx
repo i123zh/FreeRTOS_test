@@ -313,7 +313,7 @@
             <Optim>1</Optim>
             <oTime>0</oTime>
             <SplitLS>0</SplitLS>
-            <OneElfS>1</OneElfS>
+            <OneElfS>0</OneElfS>
             <Strict>0</Strict>
             <EnumInt>0</EnumInt>
             <PlainCh>0</PlainCh>
@@ -403,11 +403,6 @@
               <FilePath>.\HARDWARE\led\led.c</FilePath>
             </File>
             <File>
-              <FileName>rs485.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\HARDWARE\rs485\rs485.c</FilePath>
-            </File>
-            <File>
               <FileName>crc16.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\HARDWARE\CRC\crc16.c</FilePath>
@@ -421,16 +416,6 @@
               <FileName>timer.c</FileName>
               <FileType>1</FileType>
               <FilePath>.\HARDWARE\timer\timer.c</FilePath>
-            </File>
-            <File>
-              <FileName>gprs_at.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\HARDWARE\GPRS_WIS800C\gprs_at.c</FilePath>
-            </File>
-            <File>
-              <FileName>gprs_data_unit.c</FileName>
-              <FileType>1</FileType>
-              <FilePath>.\HARDWARE\GPRS_WIS800C\gprs_data_unit.c</FilePath>
             </File>
           </Files>
         </Group>

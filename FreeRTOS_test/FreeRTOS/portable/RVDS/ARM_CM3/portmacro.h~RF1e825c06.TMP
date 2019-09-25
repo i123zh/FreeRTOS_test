@@ -221,14 +221,14 @@ static portFORCE_INLINE void vPortRaiseBASEPRI( void )
 {
 uint32_t ulNewBASEPRI = configMAX_SYSCALL_INTERRUPT_PRIORITY;
 
-    __asm
-    {
-        /* Set BASEPRI to the max syscall priority to effect a critical
-        section. */
-        msr basepri, ulNewBASEPRI
-        dsb
-        isb
-    }
+	__asm
+	{
+		/* Set BASEPRI to the max syscall priority to effect a critical
+		section. */
+		msr basepri, ulNewBASEPRI
+		dsb
+		isb
+	}
 }
 /*-----------------------------------------------------------*/
 

@@ -9,6 +9,8 @@ void obj_create(void);
 
 void LED0_Task(void * pv);
 void LED1_Task(void * pv);
-void GPRS_Task(void *pv);
+void Interrupt_Task(void * pv);
+
+void Task_Suspend_Test(char r);
 
 #endif

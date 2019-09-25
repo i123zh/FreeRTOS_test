@@ -1,5 +1,6 @@
 #include "usart.h"
 
+/* 重定向printf函数 */
 int fputc(int ch,FILE *p)  //函数默认的，在使用printf函数时自动调用
 {
     USART_SendData(USART2,(u8)ch);
@@ -70,7 +71,7 @@ void USART1_IRQHandler(void)                        //串口1中断服务程序
         USART_ClearFlag(USART1,USART_IT_RXNE);
         r =USART_ReceiveData(USART1);//(USART1->DR);    //读取接收到的数据
         USART_SendData(USART1,r);
-        //while(USART_GetFlagStatus(USART1,USART_FLAG_TC) != SET);
+        while(USART_GetFlagStatus(USART1,USART_FLAG_TC) != SET);
     }
 } 
 
@@ -143,26 +144,13 @@ void usart2_init(uint32_t baud)
 *******************************************************************************/ 
 extern TaskHandle_t LED0_Task_handle;
 
-void USART2_IRQHandler(void)                                //串口1中断服务程序
+void USART2_IRQHandler(void)                                //串口2中断服务程序
 {
     u8 r;
-    BaseType_t res;
     if(USART_GetITStatus(USART2, USART_IT_RXNE) != RESET)   //接收中断
     {
         r = USART_ReceiveData(USART2);                      //读取接收到的数据
         USART_SendData(USART2,r);                           //回显
-        if(r == '1')
-        {
-            res = xTaskResumeFromISR(LED0_Task_handle);
-            if(res == pdTRUE)
-            {
-                portYIELD_FROM_ISR(res);
-            }
-        }
-        if(r == '2')
-        {
-            vTaskSuspend(LED0_Task_handle);
-        }
         while(USART_GetFlagStatus(USART2,USART_FLAG_TC) != SET);
     } 
     USART_ClearFlag(USART2,USART_FLAG_TC);
@@ -229,7 +217,7 @@ u8 USART3_RX_CNT;
 *******************************************************************************/ 
 void USART3_IRQHandler(void)
 {
-    u8 res;	                                                //定义数据缓存变量
+    u8 res;                                                 //定义数据缓存变量
     if(USART_GetITStatus(USART3, USART_IT_RXNE) != RESET)   //接收到数据
     {
         res =USART_ReceiveData(USART3);                     //读取接收到的数据USART3->DR

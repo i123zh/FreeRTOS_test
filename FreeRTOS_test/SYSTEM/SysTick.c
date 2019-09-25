@@ -1,51 +1,34 @@
 #include "SysTick.h"
 #include "timer.h"
 
+volatile int gTimer;
+
 //初始化延迟函数
-void SysTick_Init()
+void SysTick_Init(void)
 {
-    TIM2_Init();
+    TIM2_Init(1, 35);
 }
 
-
-//延时us
-//1us延时有误差，大于1us延时误差较小
+//延时 2 * n us
 void delay_us(u32 nus)
 {
-    u16 counter=nus&0xffff;
-    TIM_Cmd(TIM2,ENABLE);
-    TIM_SetCounter(TIM2,counter);
-    while(counter>1)
-    {
-        counter=TIM_GetCounter(TIM2);
-    }
-    TIM_Cmd(TIM2,DISABLE);
+    gTimer = nus;
+    while(gTimer > 0)
+        ;
 }
 
-//延时ms 最大值65535
-//误差比较大
+//延时 1 * n ms
 void delay_ms(u16 nms)
 {
-    int i = 0;
-    u16 counter = 0;
-    TIM_Cmd(TIM2,ENABLE);
-    for(i = 0; i < 1000; i++)
-    {
-        counter=nms;
-        TIM_SetCounter(TIM2,counter);
-        while(counter>1)
-        {
-            counter=TIM_GetCounter(TIM2);
-        }
-    }
-    TIM_Cmd(TIM2,DISABLE);
+    gTimer = nms * 500;
+    while(gTimer > 0)
+        ;
 }
 
 void vDelay_ms(u16 nms)
 {
     vTaskDelay(nms/portTICK_RATE_MS);
 }
-
 
 
 

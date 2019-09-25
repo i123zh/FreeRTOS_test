@@ -87,7 +87,7 @@
 #define configUSE_TICK_HOOK         0
 #define configCPU_CLOCK_HZ          ( ( unsigned long ) 72000000 )      //CPU主频，单位Hz
 #define configTICK_RATE_HZ          ( ( TickType_t ) 1000 )             //系统时钟节拍数，单位Hz
-#define configMAX_PRIORITIES        ( 5 )           //最大优先级数量
+#define configMAX_PRIORITIES        ( 10 )           //最大优先级数量
 #define configMINIMAL_STACK_SIZE    ( ( unsigned short ) 128 )          //空闲任务的栈空间大小，单位字，即4字节
 #define configTOTAL_HEAP_SIZE       ( ( size_t ) ( 17 * 1024 ) )        //堆内存
 #define configMAX_TASK_NAME_LEN     ( 16 )          //任务名最大字符数，包含'\0'
@@ -133,7 +133,6 @@ to exclude the API function. */
 /* !!!! configMAX_SYSCALL_INTERRUPT_PRIORITY must not be set to zero !!!!
 See http://www.FreeRTOS.org/RTOS-Cortex-M3-M4.html. */
 #define configMAX_SYSCALL_INTERRUPT_PRIORITY    191 /* equivalent to 0xb0, or priority 11. */
-
 
 /* This is the value being used as per the ST library which permits 16
 priority values, 0 to 15.  This must correspond to the
